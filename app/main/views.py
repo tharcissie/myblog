@@ -124,7 +124,7 @@ def delete_comment(comment_id):
         abort(403)
     comment.delete()
     flash("Done")
-    return redirect(url_for('main.comment'))
+    return redirect(url_for('main.blog'))
 
 
 @main.route('/subscribe',methods = ['POST','GET'])
