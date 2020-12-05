@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4 black">
+        <div class="content-section mt-4">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+            </div>
+            {% endfor %}
+            
+    <div class="card testimonial-card">
+    <div class="card-up indigo lighten-1"></div>
+    <div class="mx-auto">
+        {% if user.profile_pic_path %}
+        <img src="{{url_for('static',filename=user.profile_pic_path)}}" class="rounded-circle account-img mt-2" style="border-radius: 50%; height:200px;"
+          class="card-img">
+        {%else%}
+        <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_960_720.png" class="rounded-circle account-img mt-2" style="border-radius: 50%; height:200px;"
+        {% endif %}
+      </div>
+      <form action="{{url_for('main.update_profile',name=user.username)}}" method="post"
+      enctype="multipart/form-data">
+      <input type="file" name="photo" class="form-control" required>
+      <input type="submit" class="btn btn-sm btn-light">
+    </form>
+    <div class="card-body">
+      <h4 class="card-title text-center">{{current_user.username|title}}</h4>
+      <hr>
+      <p> {{current_user.email}} </p>
+      <p><i class="fas fa-quote-left"></i> {{current_user.bio}} <i class="fas fa-quote-right"></i> </p>
+      <div>
+        <a class="mb-4 btn btn-sm btn-light" href="{{url_for('main.updateprofile',name=user.username)}}">update profile</a>
+      </div>
+    </div>
+      
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

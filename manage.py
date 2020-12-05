@@ -8,7 +8,8 @@ app = create_app()
 manager =  Manager(app)
 migrate = Migrate(app,db)
 manager.add_command('db',MigrateCommand)
-manager.add_command('run',Server(use_debugger=True))
+#manager.add_command('run',Server(use_debugger=True))
+manager.add_command('server',Server)
 
 @manager.shell
 def make_shell_context():
@@ -24,4 +25,5 @@ def test():
     unittest.TextTestRunner(verbosity=5).run(tests)
 
 if __name__ == '__main__':
+    app.debug = True
     manager.run()

@@ -4,7 +4,8 @@ import os
 class Config:
     SECRET_KEY = 'SECRET_KEY'
     
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    #SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://tharcissie:ntakarakorwa123@localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -14,7 +15,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD") 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    #SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://tharcissie:ntakarakorwa123@localhost/blog'
     pass
 
 

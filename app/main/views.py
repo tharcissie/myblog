@@ -20,7 +20,7 @@ def index():
 def profile(name):
     user = User.query.filter_by(username = name).first()
     user_id = current_user._get_current_object().id
-    blog = Blog.query.filter_by(user_id = user_id).all()
+    #blog = Blog.query.filter_by(user_id = user_id).all()
     if user is None:
         abort(404)
     return render_template("profile/profile.html", user = user,blog=blog)
@@ -34,8 +34,10 @@ def updateprofile(name):
         abort(404)
     if form.validate_on_submit():
         user.bio = form.bio.data
-        user.save_user()
-        return redirect(url_for('.profile',name = name))
+        user.username = form.username.data
+        user.email = form.email.data
+        user.save()
+        return redirect(url_for('main.index',name = name))
     return render_template('profile/update.html',form =form)
 
 
@@ -95,27 +97,6 @@ def updateblog(blog_id):
     return render_template('newblog.html', form = form)
 
 
-
-@main.route('/comment/<blog_id>', methods = ['Post','GET'])
-@login_required
-def comment(blog_id):
-    blog = Blog.query.get(blog_id)
-    comment =request.form.get('newcomment')
-    new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id=blog_id)
-    new_comment.save()
-    return redirect(url_for('main.blog',id = blog.id))
-
-@main.route('/subscribe',methods = ['POST','GET'])
-def subscribe():
-    email = request.form.get('subscriber')
-    new_subscriber = Subscriber(email = email)
-    new_subscriber.save_subscriber()
-    mail_message("Done","email/welcome_subscriber",new_subscriber.email,new_subscriber=new_subscriber)
-    flash('Done')
-    return redirect(url_for('main.index'))
-
-
-
 @main.route('/blog/<blog_id>/delete', methods = ['POST'])
 @login_required
 def delete_post(blog_id):
@@ -126,10 +107,38 @@ def delete_post(blog_id):
     flash("Done")
     return redirect(url_for('main.index'))
 
+@main.route('/comment/<blog_id>', methods = ['Post','GET'])
+@login_required
+def comment(blog_id):
+    blog = Blog.query.get(blog_id)
+    comment =request.form.get('newcomment')
+    new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id=blog_id)
+    new_comment.save()
+    return redirect(url_for('main.blog',id = blog.id))
 
-@main.route('/user/<string:username>')
-def user_posts(username):
-    user = User.query.filter_by(username=username).first()
-    blogs = Blog.query.filter_by(user=user).order_by(Blog.posted.desc())
-    return render_template('userposts.html',blogs=blogs,user = user)
+
+
+@main.route('/comment/<comment_id>/delete', methods = ['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = comment.query.get(comment_id)
+    if comment.user != current_user:
+        abort(403)
+    comment.delete()
+    flash("Done")
+    return redirect(url_for('main.comment'))
+
+
+@main.route('/subscribe',methods = ['POST','GET'])
+def subscribe():
+    email = request.form.get('subscriber')
+    new_subscriber = Subscriber(email = email)
+    new_subscriber.save_subscriber()
+    flash('Done')
+    return redirect(url_for('main.index'))
+
+
+
+
+
 
