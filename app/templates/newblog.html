@@ -3,16 +3,17 @@
 
 
 {% block content %}
-
-    <div  i="particles-js"  >  
-        <div class=" row" >
-                
-            <div class="col-md-2"></div>
-            <div class="col-md-8" id="postform">
-                <h2 class="text-center">Create Your Blog Here!</h2>
+<div style="padding-top:1.5cm; margin-top: -10px;
+padding-bottom: 3.5cm; background-image: url('https://images.unsplash.com/photo-1516638489986-0c17c234db55?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8bWFnaWN8ZW58MHx8MHx0ZWFs&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');background-attachment: fixed;
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat; ">
+    <div class="container" style="padding-bottom: 5cm;">  
+        <div class="row justify-content-center" >
+            <div class="col-md-7 card p-5" style="background-color: #e5f7e0;">
+                <h2 class="text-center"><strong>Create a Post</strong></h2>
                 {{wtf.quick_form(form)}}
             </div>
-            <div class="col-md-2"></div>
         </div>
     </div>
    
