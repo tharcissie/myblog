@@ -3,3 +3,9 @@ This an app that enables to see the different post created by different people. 
 
 ## Author
 Tharcissie Idufashe
+
+## Technologies Used
+ * Python
+ * Flask
+ * Flask-script
+ * Flask-bootstrap
