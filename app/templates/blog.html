@@ -6,59 +6,62 @@ padding-bottom: 3.5cm; background-image: url('https://images.unsplash.com/photo-
 background-position: center;
 background-size: cover;
 background-repeat: no-repeat; ">
-<div class="container p-5">
-    <div class="row justify-content-center">
-        <div class="card col-md-8 m-3">
-            <div class="card-body">
-                <h5 class="card-title p-5 text-center">{{blog.title}}</h5>
-                <p>{{blog.post}}</p>
-                <p class="card-text">Posted by : {{blog.user.username}}
-                <p class="card-text">Posted on : {{blog.date.strftime('%d-%m-%Y')}}
-            </div>
-            {% if blog.user == current_user %}
-            <div class="card-footer text-muted">
-                <a class="btn text-light btn-sm m-1" href="{{url_for('main.updateblog',blog_id = blog.id)}}" style="background-color: #2A850E;">Edit
-                    Post</a>
-                <a class="btn text-dark btn-sm m-1" data-toggle="modal" data-target="#modalConfirmDelete"
-                    type="submit"style="background-color: #D0FFC2;">Delete Post</a>
-                {% endif %}
-            </div>
-            <hr>
-            <p class="text-small mt-5">{{blog.comment.count()}}<i class="far fa-comment"></i></p>
-            <form class="mb-5" action="{{url_for('main.comment',blog_id = blog.id)}}" method="POST">
-                <textarea class="form-control" placeholder="Type your comment..." rows="2" required></textarea>
-        <div class="">
-            <button class="btn btn-sm btn-success">Comment</button>
-        </div>
-        </form>
-<hr>
-        <div class="col-md-7 ">
-            <p class="text-small">comments</p>
-            {% for comment in comments %}
-            <p class="mt-10"><span style="font-weight: bold">__{{comment.user.username}} : </span>
-                {{comment.comment}}</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
-        <div class="modal-content text-center">
-            <div class="modal-header d-flex justify-content-center">
-                <p class="heading">Are you sure?</p>
-            </div>
-            <div class="modal-footer flex-center">
-                <form action="{{url_for('main.delete_post',blog_id = blog.id)}}" method="POST">
-                    <input type="submit" class="btn  btn-outline-success btn-sm" value="Yes">
+    <div class="container p-5">
+        <div class="row justify-content-center">
+            <div class="card col-md-8 m-3">
+                <div class="card-body">
+                    <h2 class="card-title p-1 text-center" style="background-color: #2D661B; color: aliceblue;">
+                        {{blog.title}}</h2>
+                    <p>{{blog.post}}</p>
+                    <p class="card-text">Posted by : {{blog.user.username}}
+                    <p class="card-text">Posted on : {{blog.date.strftime('%d-%m-%Y')}}
+                </div>
+                {% if blog.user == current_user %}
+                <div class="card-footer text-muted">
+                    <a class="btn text-light btn-sm m-1" href="{{url_for('main.updateblog',blog_id = blog.id)}}"
+                        style="background-color: #2A850E;">Edit
+                        Post</a>
+                    <a class="btn text-dark btn-sm m-1" data-toggle="modal" data-target="#modalConfirmDelete"
+                        type="submit" style="background-color: #D0FFC2;">Delete Post</a>
+                    </div>
+                    <hr>
+                    {% endif %}
+                
+                <p class="text-small mt-5">{{blog.comment.count()}}<i class="far fa-comment"></i></p>
+                <form class="mb-5" action="{{url_for('main.comment',blog_id = blog.id)}}" method="POST">
+                    <textarea class="form-control" placeholder="Type your comment..." rows="2" required></textarea>
+                    <div class="">
+                        <button class="btn btn-sm btn-success">Comment</button>
+                    </div>
                 </form>
-                <a type="button" class="btn btn-sm btn-success" data-dismiss="modal">No</a>
+                <hr>
+                <div class="col-md-7 ">
+                    <p class="text-small">comments</p>
+                    {% for comment in comments %}
+                    <p class="mt-10"><span style="font-weight: bold">__{{comment.user.username}} : </span>
+                        {{comment.comment}}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-notify modal-success" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure?</p>
+                </div>
+                <div class="modal-footer flex-center">
+                    <form action="{{url_for('main.delete_post',blog_id = blog.id)}}" method="POST">
+                        <input type="submit" class="btn  btn-outline-success btn-sm" value="Yes">
+                    </form>
+                    <a type="button" class="btn btn-sm btn-success" data-dismiss="modal">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-{% endblock %}
+    {% endblock %}
