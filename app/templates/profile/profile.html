@@ -6,32 +6,34 @@ padding-bottom: 3.5cm; background-image: url('https://images.unsplash.com/photo-
 background-position: center;
 background-size: cover;
 background-repeat: no-repeat; ">
-<div class="container p-5">
-  <div class="row justify-content-center">
-    <div class="col-md-7 card">
-    <div class="mx-auto">
-        {% if user.profile_pic_path %}
-        <img src="{{url_for('static',filename=user.profile_pic_path)}}" class="rounded-circle account-img mt-2" style="border-radius: 50%; height:200px;"
-          class="card-img">
-        {%else%}
-        <img src="https://images.unsplash.com/photo-1523299430930-662665409fc9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8bWFnaWN8ZW58MHx8MHx3aGl0ZQ%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="rounded-circle account-img mt-2" style="border-radius: 50%; height:200px;">
-        {% endif %}
-        <h4 class="card-title text-center">{{current_user.username|title}}</h4>
-      </div>
-      <form action="{{url_for('main.update_profile',name=user.username)}}" method="post"
-      enctype="multipart/form-data">
-      <input type="file" name="photo" class="form-control" required>
-      <input type="submit" class="btn btn-sm btn-success">
-    </form>
-    <div class="card-body">
-      <hr>
-      <p> {{current_user.email}} </p>
-      <p><i class="fas fa-quote-left"></i> {{current_user.bio}} <i class="fas fa-quote-right"></i> </p>
-      <div>
-        <a class="mb-4 btn btn-sm btn-success" href="{{url_for('main.updateprofile',name=user.username)}}">update profile</a>
-      </div>
-    </div>
-      
+  <div class="container p-5">
+    <div class="row justify-content-center">
+      <div class="col-md-7 card">
+        <div class="mx-auto">
+          {% if user.profile_pic_path %}
+          <img src="{{url_for('static',filename=user.profile_pic_path)}}" class="rounded-circle account-img mt-2"
+            style="border-radius: 50%; height:200px;" class="card-img">
+          {%else%}
+          <img
+            src="https://images.unsplash.com/photo-1523299430930-662665409fc9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8bWFnaWN8ZW58MHx8MHx3aGl0ZQ%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            class="rounded-circle account-img mt-2" style="border-radius: 50%; height:200px;">
+          {% endif %}
+          <h4 class="card-title text-center">{{current_user.username|title}}</h4>
+        </div>
+        <form action="{{url_for('main.update_profile',name=user.username)}}" method="post"
+          enctype="multipart/form-data">
+          <input type="file" name="photo" class="form-control" required>
+          <input type="submit" class="btn btn-sm btn-success">
+        </form>
+        <div class="card-body">
+          <hr>
+          <p> {{current_user.email}} </p>
+          <p><i class="fas fa-quote-left"></i> {{current_user.bio}} <i class="fas fa-quote-right"></i> </p>
+          <div>
+            <a class="mb-4 btn btn-sm btn-success" href="{{url_for('main.updateprofile',name=user.username)}}">update
+              profile</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
