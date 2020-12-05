@@ -64,8 +64,6 @@ def new_blog():
         user_id =  current_user._get_current_object().id
         blog = Blog(title=title,post=post,user_id=user_id)
         blog.save()
-        for subscriber in subscribers:
-            mail_message("New Post have been created","email/new_blog",subscriber.email,blog=blog)
         return redirect(url_for('main.index'))
         flash('New Post have been created')
     return render_template('newblog.html', form = form)

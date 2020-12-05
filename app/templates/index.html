@@ -1,61 +1,54 @@
 {% extends 'base.html'%}
 
 {% block content %}
-    <div class="container landing">
-        <div class="row ">
-                {% if current_user.is_authenticated %}
-                <div class="col-md-3 "><a class="btn btn-sm btn-info " id="ref" href="{{url_for('main.new_blog')}}">Post</a></div>
-                {% endif %}
-            
-            <div class="col-md-9 "><h1 >Welcome to MyBlog</h1></div>
-        </div>
 
+<div style="padding-top:1.5cm; margin-top: -10px;
+padding-bottom: 3.5cm; background-image: url('https://images.unsplash.com/photo-1580867803776-6776a6e9c1e4?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8bWFnaWN8ZW58MHx8MHxncmVlbg%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');background-attachment: fixed;
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat; ">
+
+    <div class="container">
+        
         <div class="row">
-            <div class="col-md-8 ">
-                {% for blog in blogs %}
-                    <div class="container bg mb-2">
-                        <hr>
-                        <div class="row ">
-
-                            <div class="col-md-10 pr-4 d-justify userblog">
-                                <p>Posted on : {{blog.date.strftime('%d-%m-%Y')}}</p>
-                                <h4><{{blog.title | upper}}</h4>
-                                <p>{{blog.post}}</p>
-                                <p> <a class="btn btn-sm btn-info" href="{{url_for('main.blog',id = blog.id)}}" > View</a></p>
-                                
+            <div class="col-md-8">
+                <h3 class="p-2 text-center" style="margin-right:5cm; background-color: aliceblue; color: #2A850E;"> <strong>POSTS</strong></h3>
+                <div class="row">
+                    {% for blog in blogs %}
+                    <div class="card col-md-4 m-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{blog.title}}</h5>
+                            <p class="card-text">Posted by : {{blog.user.username}}
+                            <p class="card-text">Posted on : {{blog.date.strftime('%d-%m-%Y')}}
+                            <div class="card-footer text-muted">
+                                <a href="{{url_for('main.blog',id = blog.id)}}" style="background-color: #2A850E; color: white;" class="btn btn-sm">View</a>
                             </div>
-                        </div> 
-                        <hr>
+                        </div>
                     </div>
-                       
-                {% endfor %}
-
-                
-
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-md-4">
-                <div class="container">
-                    <div class="card cardquote">
-                        <div class="card-title">
-                            <h4>A quote by: <span style="color: rgb(3, 3, 3)">{{post.author}}</span> </h4>
-                        </div>
-                        <p class="card-text">{{post.quote}}</p>
+                <div class="card p-5">
+                    <div class="card-title">
+                        <h4><strong>A quote By : {{post.author}}</strong></h4>
                     </div>
+                    <p class="card-text">{{post.quote}}</p>
                 </div>
                 <div class="container-fluid">
                     {% for message in get_flashed_messages() %}
                     <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
                     </div>
                     {% endfor %}
                     <form class="form-inline ml-2" action="{{url_for('main.subscribe')}}" method="POST">
                         <div class="md-form form-group">
-                            <label class="white-color">Email Address...</label>
-                            <input type="email"  class="form-control " name ="subscriber" required>
+                            <label class="text-light">Email Address...</label>
+                            <input type="email" class="form-control " name="subscriber" required>
                         </div>
                         <div class="md-form form-group">
-                            <button class="btn btn-sm btn-outline-info" id="subs">Subscribe</button>
+                            <button class="btn btn-sm" style="background-color: #2A850E; color: white;">Subscribe</button>
                         </div>
                     </form>
                 </div>
@@ -63,4 +56,4 @@
         </div>
     </div>
 
-{% endblock %}
+    {% endblock %}
